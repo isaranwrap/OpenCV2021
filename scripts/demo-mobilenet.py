@@ -7,7 +7,7 @@ import numpy as np
 import time
 import argparse
 
-nnPathDefault = str((Path('/Users/saranmedical-smile/Desktop/opencv-2021/scripts/models/mobilenet-ssd_openvino_2021.2_6shave.blob')).resolve().absolute())
+nnPathDefault = str((Path('/Users/Praveens/Desktop/ishan/OpenCV2021/models/mobilenet-ssd_openvino_2021.2_6shave.blob')).resolve().absolute())
 parser = argparse.ArgumentParser()
 parser.add_argument('nnPath', nargs='?', help="Path to mobilenet detection network blob", default=nnPathDefault)
 parser.add_argument('-s', '--sync', action="store_true", help="Sync RGB output with NN output", default=False)
