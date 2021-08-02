@@ -86,7 +86,7 @@ with dai.Device(pipeline) as device:
             inRgb = qRgb.tryGet()
             inDet = qDet.tryGet()
 
-        if inRgb is not None:
+        if inRgb is not None:xq
             frame = inRgb.getCvFrame()
             cv2.putText(frame, "NN fps: {:.2f}".format(counter / (time.monotonic() - startTime)),
                         (2, frame.shape[0] - 4), cv2.FONT_HERSHEY_TRIPLEX, 0.4, color=(255, 255, 255))
