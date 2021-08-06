@@ -1,15 +1,14 @@
 import os
+import cv2
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-
-import cv2
 
 imageIndex = 0
 save = False
 root = 'img'
 imageFolder = '../data/data/rgb-cam2'
-outFolder = '../data/data/clean'
+outFolder = '../data/data/clean/cam2'
 imageName = os.listdir(imageFolder)[imageIndex]
 img = cv2.imread(os.path.join(imageFolder, imageName))
 rect_color = (255, 0, 0) # blue
@@ -49,10 +48,14 @@ while True:
         imageIndex -= 1
         imageName = os.listdir(imageFolder)[imageIndex]
         img = cv2.imread(os.path.join(imageFolder, imageName))
-
+    
     if code == ord('s'):
         save = not save
         print('Save switched to {}'.format(save))
+    
+    if code == ord('q'):
+        break
+    
     if save:
         cv2.imwrite(os.path.join(outFolder, imageName), img[crop_y1:crop_y2, crop_x1:crop_x2])
 
