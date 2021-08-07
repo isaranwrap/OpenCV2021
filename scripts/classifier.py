@@ -7,6 +7,7 @@ import Augmentor
 import numpy as np
 import pandas as pd
 <<<<<<< HEAD
+<<<<<<< HEAD
 from keras.layers import Dense, Flatten
 import Augmentor # 
 from sklearn.preprocessing import OneHotEncoder
@@ -44,12 +45,38 @@ num_filters = 8
 filter_size = 3
 pool_size = 2
 
+=======
+import tensorflow as tf
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import OneHotEncoder
+from keras.models import Sequential
+from keras.layers import Dense, Flatten, Dropout, Activation, Conv2D, MaxPool2D, BatchNormalization
+
+
+def one_hot(Y):
+    oh = np.zeros((len(Y), Y.max() + 1))
+    oh[np.arange(Y.size), Y] = 1
+    oh = oh.T
+    return oh
+
+# Initialize variables
+imageFolder = '/Users/Praveens/Desktop/ishan/OpenCV2021/data/data/clean/cam2/output'
+resizeDim = 32
+num_channels = 3
+num_filters = 8
+filter_size = 3
+pool_size = 2
+
+>>>>>>> de57a1926e889fb89bd119da44f5c18e670530af
 '''
 foods = ['rgb', 'banana', 'potato', 'kiwi', 'egg', 'tomato', 
          'squash', 'corn', 'lettuce', 'cabbage', 'green_tea'
          'burger','steak', 'spaghetti']
 '''
 foods = ['rgb', 'banana', 'potato', 'kiwi', 'egg', 'tomato']
+<<<<<<< HEAD
+>>>>>>> de57a1926e889fb89bd119da44f5c18e670530af
+=======
 >>>>>>> de57a1926e889fb89bd119da44f5c18e670530af
 num_foods = len(foods)
 num_foods_ = 32 # Used in NN initialization
@@ -61,6 +88,7 @@ for indx, food in enumerate(foods):
   food_to_label[food] = indx
   label_to_food[indx] = food
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 # Define the neural network
 model = tf.keras.Sequential([
@@ -77,6 +105,8 @@ rawTrainImages = [cv2.imread(os.path.join(imageFolder, file)) for file in os.lis
 rawLabels = np.array([food_to_label[food[:-5]] for food in os.listdir(imageFolder)])
 labels = one_hot(rawLabels)
 =======
+=======
+>>>>>>> de57a1926e889fb89bd119da44f5c18e670530af
 # Read in raw images
 rawImages = np.array([cv2.imread(os.path.join(imageFolder, file)) for file in os.listdir(imageFolder)]) # 160 x 160 
 rawLabels = np.array([food_to_label[re.compile(r'(?<=cam2_original_)[a-zA-Z]+').findall(s)[0]] for s in os.listdir(imageFolder)])
@@ -106,4 +136,7 @@ model.fit(trainX, trainY, batch_size=256, epochs=20, validation_split=0.3)
 
 model.summary()
 
+<<<<<<< HEAD
+>>>>>>> de57a1926e889fb89bd119da44f5c18e670530af
+=======
 >>>>>>> de57a1926e889fb89bd119da44f5c18e670530af

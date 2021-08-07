@@ -1,5 +1,6 @@
 # %%
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Imports
 import os
 import re
@@ -30,6 +31,8 @@ resizeDim = 32
 foods = ['rgb','banana', 'potato', 'kiwi', 'egg','potato']
 num_foods = len(foods)
 =======
+=======
+>>>>>>> de57a1926e889fb89bd119da44f5c18e670530af
 
 # Imports
 import re
@@ -74,11 +77,15 @@ height = np.array([0.5, 1.0, 1.4, 0.5, 0.9, 1.0]) # Height of water displacement
 weight = np.array([4.5, 2.25, 4]) # Weight of food (in ounces)
 volume = np.pi*2.2**2*height
 #array([ 7.60265422, 15.20530844, 21.28743182,  7.60265422, 13.6847776 , 15.20530844])
+<<<<<<< HEAD
+>>>>>>> de57a1926e889fb89bd119da44f5c18e670530af
+=======
 >>>>>>> de57a1926e889fb89bd119da44f5c18e670530af
 
 # Mapping between food labels
 food_to_label = dict()
 label_to_food = dict()
+<<<<<<< HEAD
 <<<<<<< HEAD
 for indx, food in enumerate(foods):
   food_to_label[food] = indx
@@ -103,6 +110,8 @@ rawTrainImages = [cv2.imread(os.path.join(imageFolder, file)) for file in os.lis
 rawLabels = np.array([food_to_label[food[:-5]] for food in os.listdir(imageFolder)])
 labels = one_hot(rawLabels)
 =======
+=======
+>>>>>>> de57a1926e889fb89bd119da44f5c18e670530af
 food_to_vol = dict()
 
 for indx, food in enumerate(foods):
@@ -145,5 +154,9 @@ model.fit(trainX, trainY, batch_size=256, epochs=20, validation_split=0.3)
 
 model.summary()
 
+<<<<<<< HEAD
+#model predicts that volume of X is (model.predict(X)-shift)*multiplier
+>>>>>>> de57a1926e889fb89bd119da44f5c18e670530af
+=======
 #model predicts that volume of X is (model.predict(X)-shift)*multiplier
 >>>>>>> de57a1926e889fb89bd119da44f5c18e670530af
