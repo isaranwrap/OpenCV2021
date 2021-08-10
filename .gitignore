@@ -5,3 +5,7 @@ food-data/
 *.jpg
 data/
 old/
+repositories/
+logs/
+AugmentData/
+models/
