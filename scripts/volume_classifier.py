@@ -83,10 +83,14 @@ model.add(Dense(64))
 
 model.add(Dense(1))
 
-model.compile(loss="mean_squared_error",optimizer="adam", metrics = ['mse', 'mae', 'mape'])
+model.compile(loss="mean_squared_error",optimizer="adam", metrics = ['mse', 'mae', 'mape', 'accuracy'])
 
-model.fit(trainX, trainY, batch_size=256, epochs=20, validation_split=0.3)
+history = model.fit(trainX, trainY, batch_size=256, epochs=20, validation_split=0.3)
 
-model.summary()
+#with open('.h5', 'w') as f:
+
+#model.summary()
+
+#model.save()
 
 #model predicts that volume of X is (model.predict(X)-shift)*multiplier

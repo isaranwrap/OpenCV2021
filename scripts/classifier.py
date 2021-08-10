@@ -21,11 +21,13 @@ def one_hot(Y):
 
 # Initialize variables
 imageFolder = '/Users/Praveens/Desktop/ishan/OpenCV2021/data/data/clean/cam2/output'
+foodClassifierPath = '/Users/Praveens/Desktop/ishan/OpenCV2021/models/'
 resizeDim = 32
 num_channels = 3
 num_filters = 8
 filter_size = 3
 pool_size = 2
+
 
 '''
 foods = ['rgb', 'banana', 'potato', 'kiwi', 'egg', 'tomato', 
@@ -53,6 +55,7 @@ trainY = one_hot(rawLabels)
 trainY = tf.keras.utils.to_categorical(rawLabels) # Equivalent to one_hot(rawLabels).T
 
 model = Sequential()
+
 model.add(Conv2D(128,(3,3), activation='relu', input_shape = trainX.shape[1:]))
 model.add(MaxPool2D(2,2))
 model.add(Dropout(.5))
@@ -64,11 +67,13 @@ model.add(Dropout(.5))
 model.add(Flatten())
 model.add(Dense(64))
 
-model.add(Dense(num_foods, activation='softmax'))
+model.add(Dense(num_foods))
 
-model.compile(loss="categorical_crossentropy",optimizer="adam",metrics=['accuracy'])
+model.compile(loss="mean_squared_error",optimizer="adam", metrics = ['mse', 'mae', 'mape'])
 
-model.fit(trainX, trainY, batch_size=256, epochs=20, validation_split=0.3)
+history = model.fit(trainX, trainY, batch_size=256, epochs=20, validation_split=0.3)
 
 model.summary()
 
+##foodClassifier = create_model()
+#foodClassifier.load_weights('/Users/Praveens/Desktop/ishan/OpenCV2021/models/')
