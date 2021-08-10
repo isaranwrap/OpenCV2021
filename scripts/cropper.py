@@ -25,8 +25,6 @@ def on_mouse_event(event, x, y, flags, param):
         cv2.rectangle(img, (crop_x1-1, crop_y1-1), (crop_x2+1,crop_y2+1), rect_color, rect_linewidth)
         print(crop_x1, crop_x2, crop_y1, crop_y2)
 
-
-
 cv2.namedWindow(root)
 cv2.setMouseCallback(root, on_mouse_event)
 
@@ -52,10 +50,20 @@ while True:
     if code == ord('s'):
         save = not save
         print('Save switched to {}'.format(save))
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+=======
+=======
+>>>>>>> de57a1926e889fb89bd119da44f5c18e670530af
     
     if code == ord('q'):
         break
     
+<<<<<<< HEAD
+>>>>>>> de57a1926e889fb89bd119da44f5c18e670530af
+=======
+>>>>>>> de57a1926e889fb89bd119da44f5c18e670530af
     if save:
         cv2.imwrite(os.path.join(outFolder, imageName), img[crop_y1:crop_y2, crop_x1:crop_x2])
 

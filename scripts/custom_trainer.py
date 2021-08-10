@@ -1,9 +1,15 @@
 import os
+<<<<<<< HEAD
 import random
 import sys
 import json
 import datetime
 from cv2 import data
+=======
+import sys
+import json
+import datetime
+>>>>>>> dffe70f9199a4531562558483b81083aa8f92350
 import numpy as np
 import skimage.draw
 import cv2
@@ -14,21 +20,34 @@ import matplotlib.pyplot as plt
 #https://github.com/matterport/Mask_RCNN/issues/2637
 #https://github.com/leekunhee/Mask_RCNN/blob/master/samples/shapes/train_shapes.ipynb
 
+<<<<<<< HEAD
 __file__ = '/Users/Praveens/Desktop/ishan/OpenCV2021/scripts/custom_trainer.py'
 parent = Path(__file__).parent.absolute()
 sys.path.append(parent)
 #sys.path.append('/Users/Praveens/Desktop/ishan/Mask_RCNN')
 
+=======
+parent = Path(__file__).parent.absolute()
+
+sys.path.append(parent)
+>>>>>>> dffe70f9199a4531562558483b81083aa8f92350
 from mrcnn.config import Config
 from mrcnn import utils
 import mrcnn.model as modellib
 from mrcnn import visualize
 from mrcnn.model import log
 
+<<<<<<< HEAD
 datasetTrain = str((Path(parent).parent.absolute() / Path('data/data/rgb-cam1')).resolve().absolute())#FIX
 datasetVal = str((Path(parent).parent.absolute() / Path('data/data/rgb-cam2')).resolve().absolute())#FIX
 weightsPath = str((Path(parent).parent.absolute() / Path('models/mask_rcnn_coco.h5')).resolve().absolute())
 jsonPath = str((Path(parent).parent.absolute() / Path('data/data/Mask-RCNN_json.json')).resolve().absolute())
+=======
+datasetTrain = str((Path(parent).parent.absolute() / Path('data/rgb-cam1')).resolve().absolute())
+datasetVal = str((Path(parent).parent.absolute() / Path('data/rgb-cam2')).resolve().absolute())
+weightsPath = str((Path(parent).parent.absolute() / Path('models/mask_rcnn_coco.h5')).resolve().absolute())
+jsonPath = str((Path(parent).parent.absolute() / Path('data/rgb-cam1/Mask-RCNN_json.json')).resolve().absolute())
+>>>>>>> dffe70f9199a4531562558483b81083aa8f92350
 logDir = str((Path(parent).parent.absolute() / Path('logs')).resolve().absolute())
 
 '''
@@ -37,7 +56,11 @@ logDir = str((Path(parent).parent.absolute() / Path('logs')).resolve().absolute(
 DEFAULT_LOGS_DIR = os.path.join(ROOT_DIR, "logs")
 '''
 
+<<<<<<< HEAD
 foods = ['CinammonRaisinBagel','OrangeJuice','Steak','Kiwi','Cookie']
+=======
+foods = ['banana', 'egg','kiwi', 'potato']
+>>>>>>> dffe70f9199a4531562558483b81083aa8f92350
 num_foods = len(foods)
 
 class CustomConfig(Config):
@@ -47,14 +70,23 @@ class CustomConfig(Config):
     # Give the configuration a recognizable name
     NAME = "foods"
 
+<<<<<<< HEAD
     # Adjust down if you use a smaller GPU.
     # can increase img/gpu with smaller pics
     GPU_COUNT = 1
     IMAGES_PER_GPU = 1
+=======
+    # We use a GPU with 12GB memory, which can fit two images.
+    # Adjust down if you use a smaller GPU.
+    # can increase img/gpu with smaller pics
+    GPU_COUNT = 1
+    IMAGES_PER_GPU = 2
+>>>>>>> dffe70f9199a4531562558483b81083aa8f92350
 
     # Number of classes (including background)
     NUM_CLASSES = 1 + num_foods  # Background + classes
 
+<<<<<<< HEAD
     #IMAGE_MIN_DIM = 128
     #IMAGE_MAX_DIM = 128
 
@@ -70,6 +102,13 @@ class CustomConfig(Config):
 
     # Skip detections with < 80% confidence
     DETECTION_MIN_CONFIDENCE = .8
+=======
+    # Number of training steps per epoch
+    STEPS_PER_EPOCH = 10
+
+    # Skip detections with < 90% confidence
+    DETECTION_MIN_CONFIDENCE = 0.8
+>>>>>>> dffe70f9199a4531562558483b81083aa8f92350
 
 config = CustomConfig()
 config.display()
@@ -80,6 +119,7 @@ config.display()
 
 class CustomDataset(utils.Dataset):
 
+<<<<<<< HEAD
     def load_custom(self, dataset_dir, subset):
 
         # Add classes. We have only one class to add.
@@ -88,6 +128,15 @@ class CustomDataset(utils.Dataset):
           self.add_class("object", idx+1, foods[idx])
 
         assert subset in ["train", "val"]
+=======
+    def load_custom(self, dataset_dir):
+
+        # Add classes. We have only one class to add.
+        self.add_class("object", 1, foods[0])
+        self.add_class("object", 2, foods[1])
+        self.add_class("object", 3, foods[2])
+        self.add_class("object", 4, foods[3])
+>>>>>>> dffe70f9199a4531562558483b81083aa8f92350
 
         # Load annotations
         # VGG Image Annotator saves each image in the form:
@@ -118,11 +167,15 @@ class CustomDataset(utils.Dataset):
             # Get the x, y coordinaets of points of the polygons that make up
             # the outline of each object instance. There are stores in the
             # shape_attributes (see json format above)
+<<<<<<< HEAD
             
             if type(a['regions']) is dict:
                 polygons = [r['shape_attributes'] for r in a['regions'].values()]
             else:
                 polygons = [r['shape_attributes'] for r in a['regions']]  
+=======
+            polygons = [r['shape_attributes'] for r in a['regions']] 
+>>>>>>> dffe70f9199a4531562558483b81083aa8f92350
             objects = [s['region_attributes']['names'] for s in a['regions']]
             print("objects:",objects)
             name_dict = {foods[0]: 1,foods[1]: 2, foods[2]: 3, foods[3]: 4}
@@ -185,6 +238,7 @@ class CustomDataset(utils.Dataset):
             return info["path"]
         else:
             super(self.__class__, self).image_reference(image_id)
+<<<<<<< HEAD
 def train(model):
     """Train the model."""
     # Training dataset.
@@ -213,6 +267,22 @@ for image_id in image_ids:
     visualize.display_top_masks(image, mask, class_ids, dataset_train.class_names)
 '''
 
+=======
+
+"""Train the model."""
+# Training dataset.
+dataset_train = CustomDataset()
+dataset_train.load_custom(datasetTrain)
+dataset_train.prepare()
+
+# Validation dataset
+dataset_val = CustomDataset()
+dataset_val.load_custom(datasetVal)
+dataset_val.prepare()
+
+
+config = CustomConfig()
+>>>>>>> dffe70f9199a4531562558483b81083aa8f92350
 model = modellib.MaskRCNN(mode="training", config=config,
                                   model_dir=logDir)
 
@@ -225,7 +295,15 @@ model.load_weights(weights_path, by_name=True, exclude=[
             "mrcnn_class_logits", "mrcnn_bbox_fc",
             "mrcnn_bbox", "mrcnn_mask"])
 
+<<<<<<< HEAD
 dataset_train, dataset_val = train(model)
+=======
+print("Training network heads")
+model.train(dataset_train, dataset_val,
+            learning_rate=config.LEARNING_RATE/10,
+            epochs=1,
+            layers='heads')
+>>>>>>> dffe70f9199a4531562558483b81083aa8f92350
 
 class InferenceConfig(Config):
     GPU_COUNT = 1
@@ -234,10 +312,17 @@ class InferenceConfig(Config):
 
 inference_config = InferenceConfig()
 
+<<<<<<< HEAD
 model2 = modellib.MaskRCNN(mode="inference", 
                           config=inference_config,
                           model_dir=logDir)
 model2.load_weights(weights_path, by_name=True)
+=======
+model = modellib.MaskRCNN(mode="inference", 
+                          config=inference_config,
+                          model_dir=logDir)
+
+>>>>>>> dffe70f9199a4531562558483b81083aa8f92350
 
 image_id = random.choice(dataset_val.image_ids)
 og_image, img_mta, class_id, bbox, mask = modellib.load_image_gt(dataset_val, inference_config, image_id)
@@ -248,7 +333,11 @@ log("gt_class_id", class_id)
 log("gt_bbox", bbox)
 log("gt_mask", mask)
 
+<<<<<<< HEAD
 visualize.display_instances(og_image, bbox, mask, class_id, 
+=======
+visualize.display_instances(original_image, gt_bbox, gt_mask, gt_class_id, 
+>>>>>>> dffe70f9199a4531562558483b81083aa8f92350
                             dataset_train.class_names, figsize=(8, 8))
 
 # Compute VOC-Style mAP @ IoU=0.5

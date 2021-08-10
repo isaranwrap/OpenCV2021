@@ -1,4 +1,38 @@
 # %%
+<<<<<<< HEAD
+<<<<<<< HEAD
+# Imports
+import os
+import re
+import cv2
+import random
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import tensorflow as tf
+from keras.layers import Dense, Flatten
+import Augmentor # 
+from sklearn.preprocessing import OneHotEncoder
+from pathlib import Path
+from keras.models import Sequential
+from keras.layers import Dense, Flatten, Dropout, Activation, Conv2D, MaxPool2D, BatchNormalization
+
+def one_hot(Y):
+  oh = np.zeros((len(Y), Y.max()+1))
+  oh[np.arange(Y.size), Y] = 1
+  oh = oh.T
+  return oh
+
+# Initialize variables
+parent = Path(__file__).parent.absolute()
+imageFolder = str((Path(parent).parent.absolute() / Path('data/clean')).resolve().absolute()) #take out distortions
+resizeDim = 32
+
+foods = ['rgb','banana', 'potato', 'kiwi', 'egg','potato']
+num_foods = len(foods)
+=======
+=======
+>>>>>>> de57a1926e889fb89bd119da44f5c18e670530af
 
 # Imports
 import re
@@ -43,10 +77,41 @@ height = np.array([0.5, 1.0, 1.4, 0.5, 0.9, 1.0]) # Height of water displacement
 weight = np.array([4.5, 2.25, 4]) # Weight of food (in ounces)
 volume = np.pi*2.2**2*height
 #array([ 7.60265422, 15.20530844, 21.28743182,  7.60265422, 13.6847776 , 15.20530844])
+<<<<<<< HEAD
+>>>>>>> de57a1926e889fb89bd119da44f5c18e670530af
+=======
+>>>>>>> de57a1926e889fb89bd119da44f5c18e670530af
 
 # Mapping between food labels
 food_to_label = dict()
 label_to_food = dict()
+<<<<<<< HEAD
+<<<<<<< HEAD
+for indx, food in enumerate(foods):
+  food_to_label[food] = indx
+  label_to_food[indx] = food
+
+# Read in raw images
+rawImages = np.array([cv2.imread(os.path.join(imageFolder, file)) for file in os.listdir(imageFolder)])
+rawLabels = np.array([food_to_label[re.compile]])
+
+# Define the neural network
+model = tf.keras.Sequential([
+                             Flatten(),
+                             Dense(int(num_foods*4), activation='relu', # 144 neurons in HL1 
+                                   input_shape=(784,),name='hidden1'), # 784 x 1
+                             Dense(int(num_foods*2), activation='relu', name='hidden2'), # 72 neurons in HL2
+                             Dense(num_foods, name='output_layer')])
+model.compile(loss='binary_crossentropy',
+optimizer=tf.keras.optimizers.SGD(learning_rate=0.01, momentum=0.0, nesterov=False, name="SGD"),
+metrics=['accuracy'])
+
+rawTrainImages = [cv2.imread(os.path.join(imageFolder, file)) for file in os.listdir(imageFolder)]
+rawLabels = np.array([food_to_label[food[:-5]] for food in os.listdir(imageFolder)])
+labels = one_hot(rawLabels)
+=======
+=======
+>>>>>>> de57a1926e889fb89bd119da44f5c18e670530af
 food_to_vol = dict()
 
 for indx, food in enumerate(foods):
@@ -93,4 +158,9 @@ history = model.fit(trainX, trainY, batch_size=256, epochs=20, validation_split=
 
 #model.save()
 
+<<<<<<< HEAD
 #model predicts that volume of X is (model.predict(X)-shift)*multiplier
+>>>>>>> de57a1926e889fb89bd119da44f5c18e670530af
+=======
+#model predicts that volume of X is (model.predict(X)-shift)*multiplier
+>>>>>>> de57a1926e889fb89bd119da44f5c18e670530af
